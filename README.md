@@ -14,6 +14,6 @@ To help understand how to define tasks using the Croissant format for **Codabenc
 
  **[Insects Classification Task](croissant-task-example.md)** – A Croissant-formatted task for an image classification benchmark.  
 
-## 🚀 How to Use  
+## How to Use  
 
 **Read the format guide** – Learn the structure of Croissant task descriptions from [croissant-task-format.md](croissant-task-format.md) and use it for your own tasks.

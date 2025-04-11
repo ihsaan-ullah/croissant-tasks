@@ -24,7 +24,7 @@ python3 ingestion_program/run_ingestion.py
 
 ### Run scoring
 
-After the ingestion program runs successfully and generates predictions, you need to run the scoring program. The scoring program loads the predictions and ground truth from `sample_result_submission` to compute `Balanced Accuracy Score` and `F1 Score`. The scoring program saves the scores to `scores.json` file in `scoring_output`
+After the ingestion program runs successfully and generates predictions, you need to run the scoring program. The scoring program loads the predictions and ground truth from `sample_result_submission` to compute `Balanced Accuracy Score` and `F1 Score`. The scoring program saves the scores to `scores.json` file in `scoring_output`.
 
 Use the following command to run the scoring program
 

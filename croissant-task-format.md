@@ -38,8 +38,7 @@
     "@type": "croissant:Implementation",
     "description": "IMPLEMENTATION_DESCRIPTION",
     "model_url": "https://example.com/models/insect-classifier",
-    "framework": "TensorFlow",
-    "version": "2.4.0"
+    "framework": "TensorFlow"
   },
 
   "execution": {
