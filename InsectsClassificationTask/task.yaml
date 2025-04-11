@@ -1,0 +1,8 @@
+name: Insects Classification 
+description: This Insect Classification task uses the micro version of Meta-Album INS dataset. The goal is to classify insects into different classes/categories. Submitted models are supplied a train set for training and a test set for predictions. The predictions are saved along with the test ground truth. During evaluation Balanced accuracy and F1 scores are computed.
+scoring_program:
+  zip: insects-classification-scoring-program.zip
+ingestion_program:
+  zip: insects-classification-ingestion-program.zip
+input_data:
+  key: insects-classification-input-data.zip
