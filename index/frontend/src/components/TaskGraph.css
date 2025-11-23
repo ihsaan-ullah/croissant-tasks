@@ -1,0 +1,210 @@
+.task-graph {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure React Flow fills container */
+.task-graph .react-flow {
+  width: 100%;
+  height: 100%;
+}
+
+.task-graph .react-flow__viewport {
+  cursor: grab;
+  pointer-events: auto !important;
+}
+
+.task-graph .react-flow__viewport:active {
+  cursor: grabbing;
+}
+
+.task-graph .react-flow__pane {
+  pointer-events: auto !important;
+}
+
+/* Hide React Flow attribution and controls */
+.task-graph .react-flow__attribution {
+  display: none !important;
+}
+
+.task-graph .react-flow__controls {
+  display: none !important;
+}
+
+.task-graph .react-flow__minimap {
+  display: none !important;
+}
+
+.custom-node {
+  position: relative;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  padding: 14px 18px;
+  min-width: 180px;
+  max-width: 240px;
+  width: auto;
+  box-shadow: var(--shadow-sm);
+  user-select: none;
+  pointer-events: auto;
+  z-index: 10;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Responsive node sizing */
+@media (max-width: 1200px) {
+  .custom-node {
+    min-width: 160px;
+    max-width: 200px;
+    padding: 12px 16px;
+  }
+  
+  .node-label {
+    font-size: 13px;
+  }
+  
+  .node-description {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 800px) {
+  .custom-node {
+    min-width: 140px;
+    max-width: 180px;
+    padding: 10px 14px;
+  }
+  
+  .node-label {
+    font-size: 12px;
+  }
+  
+  .node-description {
+    font-size: 9px;
+  }
+}
+
+/* Color Coding Logic:
+ * - Data nodes (inputs & outputs): Blue (all data artifacts)
+ * - Processing nodes (implementation): Green (code/processing logic)
+ */
+.custom-node.input,
+.custom-node.output {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.custom-node.implementation {
+  border-color: var(--color-success);
+  background: #d1fae5; /* Light green - processing/code */
+  width: 220px !important; /* Fixed width so reference and normal impl are same size */
+  min-width: 220px !important;
+  max-width: 220px !important;
+}
+
+.custom-node.clickable {
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.custom-node.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+  border-width: 2px;
+  z-index: 10;
+}
+
+.node-link-indicator {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 10px;
+  opacity: 0.7;
+  font-weight: bold;
+}
+
+.node-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.node-description {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* React Flow overrides */
+.react-flow__node {
+  cursor: default;
+}
+
+.react-flow__node.clickable {
+  cursor: pointer;
+}
+
+.react-flow__node .custom-node {
+  position: relative;
+  z-index: 10;
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.react-flow__edge-path {
+  stroke: var(--color-primary);
+  stroke-width: 2.5;
+  opacity: 0.85;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 8;
+  animation: dashdraw 0.6s linear infinite;
+  stroke: var(--color-primary);
+  stroke-width: 2.5;
+  opacity: 0.9;
+}
+
+/* Edge markers/arrows - directed edges */
+.react-flow__arrowhead {
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+}
+
+.react-flow__edge-marker {
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+}
+
+@keyframes dashdraw {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* Ensure edges are visible */
+.react-flow__edge {
+  pointer-events: none;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--color-primary);
+  stroke-width: 3;
+}
+

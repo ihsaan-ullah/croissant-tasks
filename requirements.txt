@@ -1,0 +1,12 @@
+# Backend dependencies
+fastapi
+uvicorn
+pydantic
+python-multipart
+
+# Data generation dependencies
+openreview-py
+mlcroissant
+pandas
+requests
+
