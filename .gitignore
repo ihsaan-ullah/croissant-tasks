@@ -1,3 +1,5 @@
 .DS_Store
 .DS_Store?
 ._*
+# Generated task JSON files
+data/tasks/*.json
