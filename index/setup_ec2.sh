@@ -14,7 +14,11 @@ sudo apt-get install -y python3 python3-pip curl
 
 # Install Node.js 20 LTS (required for frontend build)
 echo "Installing Node.js 20 LTS..."
+# Remove old Node.js packages if they exist to avoid conflicts
+sudo apt-get remove -y nodejs npm libnode-dev libnode72 2>/dev/null || true
+# Add NodeSource repository
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+# Install Node.js 20
 sudo apt-get install -y nodejs
 
 # Verify Node.js version
