@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from starlette.middleware.base import BaseHTTPMiddleware
 import os
 import json
 import asyncio
@@ -9,10 +10,29 @@ from typing import List, Dict, Any, Optional
 
 app = FastAPI(title="Croissant Task Index API")
 
-# Allow CORS for local React dev
+# Security headers middleware
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        return response
+
+app.add_middleware(SecurityHeadersMiddleware)
+
+# CORS configuration - allow all origins for production (can be restricted if needed)
+# For production, consider restricting to specific domains
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+if "*" in allowed_origins:
+    allow_origins = ["*"]
+else:
+    allow_origins = allowed_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
