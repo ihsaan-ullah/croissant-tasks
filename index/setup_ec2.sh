@@ -10,7 +10,16 @@ cd "$ROOT_DIR"
 # Install system dependencies
 echo "Installing system dependencies..."
 sudo apt-get update
-sudo apt-get install -y python3 python3-pip nodejs npm
+sudo apt-get install -y python3 python3-pip curl
+
+# Install Node.js 20 LTS (required for frontend build)
+echo "Installing Node.js 20 LTS..."
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Verify Node.js version
+echo "Node.js version: $(node --version)"
+echo "npm version: $(npm --version)"
 
 # Install Python dependencies
 echo "Installing Python dependencies..."
