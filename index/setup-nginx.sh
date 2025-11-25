@@ -41,6 +41,24 @@ if [ -L /etc/nginx/sites-enabled/default ]; then
     rm /etc/nginx/sites-enabled/default
 fi
 
+# Fix permissions for nginx to read frontend assets
+echo "Setting permissions for frontend assets..."
+FRONTEND_DIST="$SCRIPT_DIR/frontend/dist"
+if [ -d "$FRONTEND_DIST" ]; then
+    # Make directory readable by nginx (www-data user)
+    chmod -R 755 "$(dirname "$FRONTEND_DIST")"
+    chmod -R 755 "$FRONTEND_DIST"
+    # Allow nginx to read files
+    setfacl -R -m u:www-data:rx "$FRONTEND_DIST" 2>/dev/null || {
+        echo "Note: setfacl not available, using chmod instead"
+        chmod -R o+r "$FRONTEND_DIST"
+    }
+    echo "Permissions set for frontend assets"
+else
+    echo "Warning: Frontend dist directory not found at $FRONTEND_DIST"
+    echo "Run ./setup.sh first to build the frontend"
+fi
+
 # Test nginx configuration
 echo "Testing nginx configuration..."
 nginx -t
