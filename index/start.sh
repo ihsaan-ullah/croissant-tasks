@@ -79,11 +79,12 @@ cd frontend
 npm install > /dev/null 2>&1 || true
 
 echo "Application is ready!"
-echo "Open: http://localhost:5173"
+echo "Frontend: http://localhost:5173"
+echo "Backend API: http://localhost:8000"
 echo "(Ctrl+C to stop)"
 
-# Run frontend in background and capture PID
-npm run dev &
+# Run frontend in background with --host to expose on network
+npm run dev -- --host &
 FRONTEND_PID=$!
 cd ..
 
