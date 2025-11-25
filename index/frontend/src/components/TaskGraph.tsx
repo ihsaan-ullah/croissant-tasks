@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import ReactFlow, { Background, Controls, useNodesState, useEdgesState, Handle, Position } from 'reactflow';
+import ReactFlow, { Background, useNodesState, useEdgesState, Handle, Position, MarkerType } from 'reactflow';
 import type { Node, Edge } from 'reactflow';
 import type { TaskDetail as TaskDetailType } from '../types';
 import './TaskGraph.css';
@@ -31,7 +31,6 @@ const CustomNode = ({ data }: { data: any }) => {
   // Determine handle positions based on node type
   const isInput = data.type === 'input';
   const isOutput = data.type === 'output';
-  const isImplementation = data.type === 'implementation';
   
   return (
     <div 
@@ -103,7 +102,6 @@ export const TaskGraph: React.FC<TaskGraphProps> = ({ taskDetail }) => {
   useEffect(() => {
     const handleResize = () => {
       if (nodes.length > 0 && containerRef.current) {
-        const graph = taskDetail['@graph'] || [];
         const implementation = taskDetail['cr:TaskProblem']?.['cr:implementation'];
         if (!implementation) return;
         
@@ -242,7 +240,6 @@ export const TaskGraph: React.FC<TaskGraphProps> = ({ taskDetail }) => {
     
     // Calculate positions: inputs on left, implementations stacked in center, outputs on right
     const padding = 40;
-    const nodeWidth = 200;
     const availableWidth = containerWidth - (padding * 2);
     
     // Left section: inputs
@@ -325,7 +322,7 @@ export const TaskGraph: React.FC<TaskGraphProps> = ({ taskDetail }) => {
               type: 'smoothstep',
               style: { stroke: '#2563eb', strokeWidth: 3 },
               markerEnd: { 
-                type: 'arrowclosed', 
+                type: MarkerType.ArrowClosed, 
                 width: 12, // 40% smaller: 20 * 0.6 = 12
                 height: 12,
                 color: '#2563eb' // Same color as edge
@@ -347,7 +344,7 @@ export const TaskGraph: React.FC<TaskGraphProps> = ({ taskDetail }) => {
               type: 'smoothstep',
               style: { stroke: '#2563eb', strokeWidth: 3 },
               markerEnd: { 
-                type: 'arrowclosed', 
+                type: MarkerType.ArrowClosed, 
                 width: 12, // 40% smaller: 20 * 0.6 = 12
                 height: 12,
                 color: '#2563eb' // Same color as edge
@@ -410,7 +407,7 @@ export const TaskGraph: React.FC<TaskGraphProps> = ({ taskDetail }) => {
             stroke: '#2563eb',
           },
           markerEnd: {
-            type: 'arrowclosed',
+            type: MarkerType.ArrowClosed,
             width: 12, // 40% smaller: 20 * 0.6 = 12
             height: 12,
             color: '#2563eb', // Same color as edge

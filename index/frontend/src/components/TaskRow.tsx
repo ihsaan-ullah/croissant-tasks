@@ -10,7 +10,6 @@ interface TaskRowProps {
 
 export const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
   const [taskDetail, setTaskDetail] = useState<TaskDetailType | null>(null);
-  const [loading, setLoading] = useState(false);
   const [running, setRunning] = useState(false);
   const [runPlatform, setRunPlatform] = useState<string | null>(null);
 
