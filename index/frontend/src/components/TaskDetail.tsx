@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactFlow, { 
   Background, 
@@ -16,7 +16,7 @@ interface TaskDetailProps {
   onBack: () => void;
 }
 
-export const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
+export const TaskDetail: React.FC<TaskDetailProps> = ({ taskId }) => {
   const [task, setTask] = useState<TaskDetailType | null>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -39,7 +39,7 @@ export const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
         
         // 1. Inputs
         if (implementation['cr:input']) {
-          implementation['cr:input'].forEach((inputRef: any, index: number) => {
+          implementation['cr:input'].forEach((inputRef: any) => {
             const inputId = inputRef['@id'];
             const inputObj = graph.find((item: any) => item['@id'] === inputId);
             const label = inputObj ? inputObj.name : inputId;
@@ -125,8 +125,6 @@ export const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
   };
 
   if (!task) return <div>Loading details...</div>;
-
-  const problem = task['cr:TaskProblem'];
 
   // Check if we're in inline mode (onBack is a no-op or empty function)
   // In this specific app context, we can infer it or pass a prop, but for now let's 
